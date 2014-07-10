@@ -78,6 +78,14 @@ This must be done for **EVERY** View Controller that uses OECentreMenu. An examp
 }
 ```
 
+## Compatibility ##
+
+Tested and working on iOS 6.1+
+
+## Credits ##
+
+Special thanks to Nick Lockwood. I used his [FXBlurView](https://github.com/nicklockwood/FXBlurView).
+
 That's all folks!
 
 
