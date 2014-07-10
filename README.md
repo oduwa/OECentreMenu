@@ -16,7 +16,7 @@ The Menu must first be initialized by calling either
 
 or
 
-```Objective-C
+```smalltalk
 [OECentreMenu setupMenuInViewController:self withButtons:nil thatHasTabBar:YES];
 ```
 The argument for *thatHasTabBar* is a boolean value that signifies whether there is a tab bar or bottom toolbar
@@ -24,7 +24,7 @@ on the view controller upon which the menu is to be displayed. This lets the met
 
 The above styles of initialization do not specify any buttons for the menu or what the buttons should do. Instead, defaults buttons are placed. You may provide your own buttons or override the defaults. It is better to provide your own buttons. An example is shown below:
 
-```Objective-C
+```smalltalk
 UIButton *button1 = [[UIButton alloc] init];
 [button1 setBackgroundImage:[UIImage imageNamed:@"quaver.png"] forState:UIControlStateNormal];
 [button1 addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -47,22 +47,22 @@ You also do not have to provide 6 buttons. You may provide any number of buttons
 
 ## Usage ##
 To display the menu, call:
-```Objective-C
+```smalltalk
 [OECentreMenu showMenu];
 ```
 To hide the menu, call:
-```Objective-C
+```smalltalk
 [OECentreMenu hideMenu];
 ```
 
 ## Using With Multiple View Controllers ##
-The OECentreMenu is a single class instance and so in any view controller that makes use of it, the *viewDidDisappear* or *viewWillDisappear* methods must be implemented, and ```[OECentreMenu hideMenu]``` must be called within it.
+The OECentreMenu is a single class instance and so in any view controller that makes use of it, the *viewDidDisappear* or *viewWillDisappear* methods must be implemented, and ```smalltalk[OECentreMenu hideMenu]``` must be called within it.
 
 *viewDidAppear* or *viewWillAppear* must also be implemented and the OECentreMenu should be initialized in there.
 
 This must be done for **EVERY** View Controller that uses OECentreMenu. An example is shown below:
 
-```Objective-C
+```smalltalk
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -78,7 +78,7 @@ This must be done for **EVERY** View Controller that uses OECentreMenu. An examp
 }
 ```
 
-
+That's all folks!
 
 
 
