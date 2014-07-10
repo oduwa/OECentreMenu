@@ -60,6 +60,18 @@
 + (void) setupMenuInViewController:(UIViewController *)vc thatHasTabBar:(BOOL) hasTabBar;
 
 
+
+/**
+ * This method removes the CentreMenu and its buttons from whatever view controller(s) it is
+ * currently on.
+ *
+ * It should be called when leaving a view controller within the view lifecycle methods
+ * @a viewWillDisappear or @a viewDidDisappear.
+ *
+ */
++ (void) removeMenuFromViewController;
+
+
 /**
  * Animates the Menu into display.
  *
