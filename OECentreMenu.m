@@ -96,6 +96,9 @@ BOOL initialized;
         tabBarHeight = 0;
     }
 
+    if([vc isKindOfClass:[UITableViewController class]]){
+        tabBarHeight += 70;
+    }
 
     /* Background View */
     initialMenuFrame = CGRectMake(DEVICE_SIZE.width+20, (DEVICE_SIZE.height/2)-tabBarHeight, 10, 10);
@@ -363,6 +366,10 @@ BOOL initialized;
     }
     else{
         tabBarHeight = 49;
+    }
+    
+    if([vcStore isKindOfClass:[UITableViewController class]]){
+        tabBarHeight += 70;
     }
     
     initialMenuFrame = CGRectMake((DEVICE_SIZE.width/2), (DEVICE_SIZE.height/2)-tabBarHeight, 1, 1);
