@@ -56,7 +56,7 @@ To hide the menu, call:
 ```
 
 ## Using With Multiple View Controllers ##
-The OECentreMenu is a single class instance and so in any view controller that makes use of it, the *viewDidDisappear* or *viewWillDisappear* methods must be implemented, and ```smalltalk[OECentreMenu hideMenu]``` must be called within it.
+The OECentreMenu is a single class instance and so in any view controller that makes use of it, the *viewDidDisappear* or *viewWillDisappear* methods must be implemented, and ```[OECentreMenu hideMenu]``` must be called within it.
 
 *viewDidAppear* or *viewWillAppear* must also be implemented and the OECentreMenu should be initialized in there.
 
