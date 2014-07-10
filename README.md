@@ -75,6 +75,7 @@ This must be done for **EVERY** View Controller that uses OECentreMenu. An examp
     [super viewDidDisappear:animated];
     
     [OECentreMenu removeMenuFromViewController];
+}	
 ```
 
 ## Compatibility ##
