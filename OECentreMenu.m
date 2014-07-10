@@ -95,9 +95,8 @@ BOOL initialized;
     else{
         tabBarHeight = 0;
     }
-    
-    NSLog(@"%d", tabBarHeight);
-    
+
+
     /* Background View */
     initialMenuFrame = CGRectMake(DEVICE_SIZE.width+20, (DEVICE_SIZE.height/2)-tabBarHeight, 10, 10);
     finalMenuFrame = CGRectMake((DEVICE_SIZE.width/2)-80-20, (DEVICE_SIZE.height/2)-tabBarHeight-20, 210, 140);
