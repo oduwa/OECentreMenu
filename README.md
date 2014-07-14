@@ -57,14 +57,13 @@ You also do not have to provide 6 buttons. You may provide any number of buttons
 ## Usage ##
 To display the menu, call:
 ```smalltalk
-// myMenu is an instance of OECentreMenu (which i suggest should be a private instance variable).
 [myMenu show];
 ```
 To hide the menu, call:
 ```smalltalk
-// myMenu is an instance of OECentreMenu (which i suggest should be a private instance variable).
 [myMenu hide];
 ```
+"myMenu" in the above example, is an instance of OECentreMenu (which i suggest should be a private instance variable).
 
 ### Device Rotation ###
 
@@ -73,19 +72,23 @@ To accomplish this, implement the delegate method -(void)didRotateFromInterfaceO
 within the View Controller making use of the menu. An example is shown below:
 
 ```smalltalk
-// myMenu is an instance of OECentreMenu (which i suggest should be a private instance variable).
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [myMenu updateFramesAfterDeviceRotation];
 }
 ```
 
+"myMenu" in the above example, is an instance of OECentreMenu (which i suggest should be a private instance variable).
+
 ** WARNING: Calling this method within -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation:duration:(NSTimeInterval)duration on the other hand, will not have any effect.**
  
 
 ### Customization ###
 
-The background of the menu can be hidden by calling the ```setShowsBackgroundFrame:(BOOL)hasFrame``` method. Setting *hasFrame* to NO hides the background of the Menu.
+- The background of the menu can be hidden by calling the ```setShowsBackgroundFrame:(BOOL)hasFrame``` method. Setting *hasFrame* to NO hides the background of the Menu.
+- The blur effect on the Menu background can be removed by calling the ```setBackgroundBlurEnabled:(BOOL) enabled``` method. Setting *enabled* to NO removes the blur effect.
+- The colour of the menu background can be changed by calling the ```changeBackgroundColour:(UIColor *)backgroundColour``` method. *backgroundColour* should be the new colour to be set to the Menu background. 
+
 
 
 
