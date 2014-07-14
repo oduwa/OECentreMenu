@@ -246,6 +246,8 @@
     _item6.clipsToBounds = YES;
     [vc.view addSubview:_item6];
     
+    [self hide];
+    
     return self;
 }
 
