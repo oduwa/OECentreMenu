@@ -8,21 +8,27 @@ A simple drag and drop solution for an animated menu in the centre of the screen
 
 
 ## Initialization ##
-The Menu must first be initialized by calling either
+The menu can be initialized in different ways depending on your preferences. The two initialization methods are 
+```[OECentreMenu initInViewController:withButtons:thatHasTabBar:]``` and ```[OECentreMenu initInViewController: withButtons:andVerticalOffset:]```. Examples are shown below:
 
 ```smalltalk
-[OECentreMenu setupMenuInViewController:self thatHasTabBar:YES];
+OECentreMenu *menu = [[OECentreMenu alloc] initInViewController:self withButtons:nil thatHasTabBar:YES];
 ```
 
 or
 
 ```smalltalk
-[OECentreMenu setupMenuInViewController:self withButtons:nil thatHasTabBar:YES];
+OECentreMenu *menu = [[OECentreMenu alloc] initInViewController:self withButtons:nil andVerticalOffset:90];
 ```
+
 The argument for *thatHasTabBar* is a boolean value that signifies whether there is a tab bar or bottom toolbar
 on the view controller upon which the menu is to be displayed. This lets the method know whether to take this into account when centering the menu.
 
-The above styles of initialization do not specify any buttons for the menu or what the buttons should do. Instead, defaults buttons are placed. You may provide your own buttons or override the defaults. It is better to provide your own buttons. An example is shown below:
+The argument for *andVerticalOffset* is a float value to offset the vertical position of the menu by. A positive value
+moves the menu up and a negative value moves it down.
+
+Notice that in the above examples, the "withButtons:" argument is nil. The above styles of initialization do not specify any buttons for the menu or what the buttons should do. Instead, defaults buttons are placed. You may provide your own buttons or override the defaults. You will probably need to provide your own buttons. An example is shown below:
+
 
 ```smalltalk
 UIButton *button1 = [[UIButton alloc] init];
@@ -39,7 +45,10 @@ button6.backgroundColor = [UIColor yellowColor];
 
 NSArray *myButtons = @[button1, button2, button3, button4, button5, button6];
 
-[OECentreMenu setupMenuInViewController:self withButtons:myButtons thatHasTabBar:YES];
+OECentreMenu *menu = [[OECentreMenu alloc] initInViewController:self withButtons:buttons thatHasTabBar:YES];
+
+// Alternatively the line below can be used to specify the vertical offset of the Menu
+//OECentreMenu *menu = [[OECentreMenu alloc] initInViewController:self withButtons:buttons andVerticalOffset:90];
 ```
 Don't forget to replace "quaver.png" with whatever image you have/want.
 
@@ -48,35 +57,37 @@ You also do not have to provide 6 buttons. You may provide any number of buttons
 ## Usage ##
 To display the menu, call:
 ```smalltalk
-[OECentreMenu showMenu];
+// myMenu is an instance of OECentreMenu (which i suggest should be a private instance variable).
+[myMenu show];
 ```
 To hide the menu, call:
 ```smalltalk
-[OECentreMenu hideMenu];
+// myMenu is an instance of OECentreMenu (which i suggest should be a private instance variable).
+[myMenu hide];
 ```
 
-## Using With Multiple View Controllers ##
-The OECentreMenu is a single class instance and so in any view controller that makes use of it, the *viewDidDisappear* or *viewWillDisappear* methods must be implemented, and ```[OECentreMenu removeMenuFromViewController];``` must be called within it.
+### Device Rotation ###
 
-*viewDidAppear* or *viewWillAppear* must also be implemented and the OECentreMenu should be initialized in there.
-
-This must be done for **EVERY** View Controller that uses OECentreMenu. An example is shown below:
+If your View Controller supports device rotation, you may want the menu to rotate with the rest of the screen.
+To accomplish this, implement the delegate method -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+within the View Controller making use of the menu. An example is shown below:
 
 ```smalltalk
-- (void) viewDidAppear:(BOOL)animated
+// myMenu is an instance of OECentreMenu (which i suggest should be a private instance variable).
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [super viewDidAppear:animated];
-    
-    [OECentreMenu setupMenuInViewController:self withButtons:nil thatHasTabBar:YES];
+    [myMenu updateFramesAfterDeviceRotation];
 }
-
-- (void) viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    [OECentreMenu removeMenuFromViewController];
-}	
 ```
+
+** WARNING: Calling this method within -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation:duration:(NSTimeInterval)duration on the other hand, will not have any effect.**
+ 
+
+### Customization ###
+
+The background of the menu can be hidden by calling the ```setShowsBackgroundFrame:(BOOL)hasFrame``` method. Setting *hasFrame* to NO hides the background of the Menu.
+
+
 
 ## Compatibility ##
 
