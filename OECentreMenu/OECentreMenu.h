@@ -31,96 +31,176 @@
 
 @interface OECentreMenu : NSObject
 
+/* MENU BACKGROUND */
+@property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, strong) UIView *regularBackgroundView;
+@property (nonatomic, strong) UIView *blurredBackgroundView;
+@property (nonatomic, assign) CGRect initialBackgroundFrame;
+@property (nonatomic, assign) CGRect finalBackgroundFrame;
+
+/* FIRST MENU ITEM */
+@property (nonatomic, strong) UIButton *item1;
+@property (nonatomic, assign) CGRect initialItem1Frame;
+@property (nonatomic, assign) CGRect finalItem1Frame;
+
+/* SECOND MENU ITEM */
+@property (nonatomic, strong) UIButton *item2;
+@property (nonatomic, assign) CGRect initialItem2Frame;
+@property (nonatomic, assign) CGRect finalItem2Frame;
+
+/* THIRD MENU ITEM */
+@property (nonatomic, strong) UIButton *item3;
+@property (nonatomic, assign) CGRect initialItem3Frame;
+@property (nonatomic, assign) CGRect finalItem3Frame;
+
+/* FOURTH MENU ITEM */
+@property (nonatomic, strong) UIButton *item4;
+@property (nonatomic, assign) CGRect initialItem4Frame;
+@property (nonatomic, assign) CGRect finalItem4Frame;
+
+/* FIFTH MENU ITEM */
+@property (nonatomic, strong) UIButton *item5;
+@property (nonatomic, assign) CGRect initialItem5Frame;
+@property (nonatomic, assign) CGRect finalItem5Frame;
+
+/* SIXTH MENU ITEM */
+@property (nonatomic, strong) UIButton *item6;
+@property (nonatomic, assign) CGRect initialItem6Frame;
+@property (nonatomic, assign) CGRect finalItem6Frame;
+
+/**
+ * The View Controller within which this OECentreMenu is contained.
+ */
+@property (nonatomic, strong) UIViewController *vc;
+
+/**
+ * A boolean flag that signifies whether there is a tab bar or bottom toolbar
+ * on vc so the method knows whether to take this into account when centering the menu.
+ */
+@property (nonatomic, assign) BOOL hasTabBar;
+
+/**
+ * A float value to offset the vertical position of the menu by. A positive value
+ * moves the menu up and a negative value moves it down.
+ */
+@property (nonatomic, assign) float centreOffSet_vertical;
+
+/**
+ * The colour of the background of the Menu.
+ */
+@property (nonatomic, strong) UIColor *backgroundColour;
+
+/**
+ * The colour of the blur effect of the Menu.
+ */
+@property (nonatomic, strong) UIColor *transparentTintColour;
+
+
+/* INITIALIZATION */
+
 /**
  * Initializes and arranges the Centre Menu.
- * Either this method or @b setupMenuInViewController:thatHasTabBar:  needs to be called before menu can be shown or hidden.
  *
  * @param vc The View Controller within which the Menu is to be displayed.
  * @param buttons An array of UIButton objects to be placed within the menu.
  * The UIButton at index 0 is for the button at the top left, 1 is for top center,
  * and 5 is for bottom right. The array may be nil, empty or contain less than 6 buttons.
  * In such a scenario, default buttons are created.
- * @param hasTabBar A boolean flag that signifies whether there is a tab bar or bottom toolbar 
- * on vc so the method knows whether to take this into account when centering the menu.
+ * @param yValue A float value to offset the vertical position of the menu by. A positive value
+ * moves the menu up and a negative value moves it down.
  *
  */
-+ (void) setupMenuInViewController:(UIViewController *)vc withButtons:(NSArray *)buttons thatHasTabBar:(BOOL) hasTabBar;
-
+- (id) initInViewController: (UIViewController *)vc withButtons:(NSArray *)buttons andVerticalOffset: (float)yValue;
 
 /**
- * Initializes and arranges the Centre Menu with default buttons.
- * Either this method or @b setupMenuInViewController:withButtons:thatHasTabBar:
- * need to be called before the Menu can be shown or hidden.
+ * Initializes and arranges the Centre Menu.
  *
  * @param vc The View Controller within which the Menu is to be displayed.
+ * @param buttons An array of UIButton objects to be placed within the menu.
+ * The UIButton at index 0 is for the button at the top left, 1 is for top center,
+ * and 5 is for bottom right. The array may be nil, empty or contain less than 6 buttons.
+ * In such a scenario, default buttons are created.
  * @param hasTabBar A boolean flag that signifies whether there is a tab bar or bottom toolbar
  * on vc so the method knows whether to take this into account when centering the menu.
  *
  */
-+ (void) setupMenuInViewController:(UIViewController *)vc thatHasTabBar:(BOOL) hasTabBar;
+- (id) initInViewController: (UIViewController *)vc withButtons: (NSArray *)buttons thatHasTabBar: (BOOL) hasTabBar;
 
 
 
-/**
- * This method removes the CentreMenu and its buttons from whatever view controller(s) it is
- * currently on.
- *
- * It should be called when leaving a view controller within the view lifecycle methods
- * @a viewWillDisappear or @a viewDidDisappear.
- *
- */
-+ (void) removeMenuFromViewController;
-
+/* PRESENTATION */
 
 /**
  * Animates the Menu into display.
  *
- * The Menu must first have been initialized at some point by calling either
- * @b setupMenuInViewController:thatHasTabBar:  or 
- * @b setupMenuInViewController:withButtons:thatHasTabBar:
+ * The Menu must first have been initialized at some point.
  * Otherwise, this method will throw an Exception.
  */
-+ (void) showMenu;
+- (void) show;
 
 
 /**
  * Animates the Menu out of display.
  *
- * The Menu must first have been initialized at some point by calling either
- * @b setupMenuInViewController:thatHasTabBar:  or
- * @b setupMenuInViewController:withButtons:thatHasTabBar:
+ * The Menu must first have been initialized at some point.
  * Otherwise, this method will throw an Exception.
  */
-+ (void) hideMenu;
+- (void) hide;
 
 
 /**
  * Updates the position of the menu for re-centering after the device has been
  * rotated.
  *
- * To use this method, implement the 
- * @a -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation 
- * method within the View Controller making use of the menu. This method should 
+ * To use this method, implement the
+ * @a -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+ * method within the View Controller making use of the menu. This method should
  * then be called within your implementation.
  *
  * @warning Calling this method within
  * @a -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation@a duration:(NSTimeInterval)duration
  * on the other hand, will not have any effect.
  */
-+ (void) updateFrames;
+- (void) updateFramesAfterDeviceRotation;
+
+
+
+/* SETTERS */
+
+/**
+ * Sets whether or not the background of the Menu is visible or not.
+ *
+ * @param enabled set to NO to hide the background of the Menu.
+ *
+ */
+- (void) setShowsBackgroundFrame:(BOOL) hasFrame;
 
 
 /**
- * Changes the tint colour of the Menu background.
+ * Sets whether or not the background of the Menu should have a blur effect or not.
  *
- * @param color The new color to be set to the Menu background.
+ * @param enabled set to YES to add a blur effect the background of the menu
  *
  */
-+ (void) setMenuBackgroundColor:(UIColor *)color;
+- (void) setBackgroundBlurEnabled:(BOOL) enabled;
 
 
+/**
+ * Changes the colour of the background of the Menu.
+ *
+ *@param backgroundColour the new colour to be set to the Menu background.
+ *
+ */
+- (void) changeBackgroundColour:(UIColor *)backgroundColour;
 
 
+/**
+ * Changes the colour of the blur effect of the Menu.
+ *
+ *@param backgroundColour the new colour to be set to the blur effect of the Menu background.
+ *
+ */
+- (void) changeTransparentTintColour:(UIColor *)transparentTintColour;
 
 
 
